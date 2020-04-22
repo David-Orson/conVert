@@ -1,3 +1,9 @@
+// State
+
+const state = {
+  signedIn: "false",
+};
+
 // Nav
 
 const nav: HTMLElement | null = document.querySelector("#nav");
@@ -11,12 +17,56 @@ title2.textContent = "Vert";
 
 title1.setAttribute("class", "logo");
 title2.setAttribute("class", "font-primary");
-navContainer.setAttribute("class", "navContainer");
+navContainer.setAttribute("class", "nav-container");
 
 navContainer.appendChild(title1);
 title1.appendChild(title2);
 
 nav?.appendChild(navContainer);
+
+// Signing Links
+
+const linksRender = (state: any) => {
+  const signIn = document.createElement("button");
+  const signOut = document.createElement("button");
+  if (state.signedIn === "false") {
+    let out = document.querySelector("#logout");
+    if (out) {
+      navContainer.removeChild(out);
+    } else {
+    }
+    signIn.textContent = "SIGNIN";
+    signIn.setAttribute("id", "signin");
+    signIn.setAttribute("class", "btn");
+
+    navContainer?.appendChild(signIn);
+
+    signIn.addEventListener("click", () => {
+      state.signedIn = "true";
+      linksRender(state);
+      console.log(`1 ${state.signedIn}`);
+    });
+  } else {
+    let myIn = document.querySelector("#signin");
+
+    if (myIn) {
+      navContainer.removeChild(myIn);
+    }
+    signOut.textContent = "LOGOUT";
+    signOut.setAttribute("id", "logout");
+    signOut.setAttribute("class", "btn");
+
+    navContainer?.appendChild(signOut);
+
+    signOut.addEventListener("click", () => {
+      state.signedIn = "false";
+      linksRender(state);
+      console.log(`2 ${state.signedIn}`);
+    });
+  }
+};
+
+linksRender(state);
 
 // Home
 

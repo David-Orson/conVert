@@ -20,6 +20,7 @@ li {
 .logo {
   font-size: 32px;
   padding: 16px;
+  cursor: pointer;
 }
 
 .nav-container {
@@ -38,6 +39,7 @@ li {
   color: white;
   background: green;
   margin: 12px;
+  cursor: pointer;
 }
 
 nav {
@@ -57,6 +59,12 @@ nav {
 }
 
 .posts-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-container {
   display: flex;
   justify-content: center;
   align-items: center;

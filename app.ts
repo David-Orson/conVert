@@ -2,6 +2,7 @@
 
 const state = {
   signedIn: "false",
+  main: "home",
 };
 
 // Nav
@@ -24,6 +25,11 @@ title1.appendChild(title2);
 
 nav?.appendChild(navContainer);
 
+title1.addEventListener("click", () => {
+  state.main = "home";
+  mainRender(state);
+});
+
 // Signing Links
 
 const linksRender = (state: any) => {
@@ -33,7 +39,6 @@ const linksRender = (state: any) => {
     let out = document.querySelector("#logout");
     if (out) {
       navContainer.removeChild(out);
-    } else {
     }
     signIn.textContent = "SIGNIN";
     signIn.setAttribute("id", "signin");
@@ -42,8 +47,8 @@ const linksRender = (state: any) => {
     navContainer?.appendChild(signIn);
 
     signIn.addEventListener("click", () => {
-      state.signedIn = "true";
-      linksRender(state);
+      state.main = "signin";
+      mainRender(state);
       console.log(`1 ${state.signedIn}`);
     });
   } else {
@@ -70,20 +75,63 @@ linksRender(state);
 
 // Home
 
-const main: HTMLElement | null = document.querySelector("#main");
+const mainRender = (state: any) => {
+  const main: HTMLElement | null = document.querySelector("#main");
+  if (state.main === "home") {
+    let signcon = document.querySelector("#sign-container");
+    if (signcon) {
+      main?.removeChild(signcon);
+    }
+    let notcon = document.querySelector("#notifications-container");
+    let postcon = document.querySelector("#posts-container");
+    if (notcon && postcon) {
+    } else {
+      const notificationsContainer = document.createElement("div");
+      const notifications = document.createElement("div");
+      const postsContainer = document.createElement("div");
+      const posts = document.createElement("div");
 
-const notificationsContainer = document.createElement("div");
-const notifications = document.createElement("div");
-const postsContainer = document.createElement("div");
-const posts = document.createElement("div");
+      notificationsContainer.setAttribute("id", "notifications-container");
+      notifications.setAttribute("id", "card1");
+      postsContainer.setAttribute("id", "posts-container");
+      posts.setAttribute("id", "card2");
 
-notificationsContainer.setAttribute("class", "notifications-container");
-notifications.setAttribute("class", "cards");
-postsContainer.setAttribute("class", "posts-container");
-posts.setAttribute("class", "cards");
+      notificationsContainer.setAttribute("class", "notifications-container");
+      notifications.setAttribute("class", "cards");
+      postsContainer.setAttribute("class", "posts-container");
+      posts.setAttribute("class", "cards");
 
-main?.appendChild(notificationsContainer);
-notificationsContainer.appendChild(notifications);
+      main?.appendChild(notificationsContainer);
+      notificationsContainer.appendChild(notifications);
 
-main?.appendChild(postsContainer);
-postsContainer.appendChild(posts);
+      main?.appendChild(postsContainer);
+      postsContainer.appendChild(posts);
+    }
+  } else if (state.main === "signin") {
+    let notcon = document.querySelector("#notifications-container");
+    if (notcon) {
+      main?.removeChild(notcon);
+    }
+    let postcon = document.querySelector("#posts-container");
+    if (postcon) {
+      main?.removeChild(postcon);
+    }
+    let signCon = document.querySelector("#sign-container");
+    if (signCon) {
+    } else {
+      const signContainer = document.createElement("div");
+      const signer = document.createElement("div");
+
+      signContainer.setAttribute("id", "sign-container");
+      signer.setAttribute("id", "signer");
+
+      signContainer.setAttribute("class", "sign-container");
+      signer.setAttribute("class", "cards");
+
+      main?.appendChild(signContainer);
+      signContainer.appendChild(signer);
+    }
+  }
+};
+
+mainRender(state);

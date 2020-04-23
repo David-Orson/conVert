@@ -25,6 +25,7 @@ title1.addEventListener("click", function () {
 // user
 // Signing Links
 var linksRender = function (state) {
+    console.log(state);
     var signIn = document.createElement("button");
     var signedInLinks = document.createElement("div");
     var signOut = document.createElement("button");
@@ -42,7 +43,6 @@ var linksRender = function (state) {
         signIn.addEventListener("click", function () {
             state.main = "signin";
             mainRender(state);
-            console.log("1 " + state.signedIn);
         });
     }
     else {
@@ -68,40 +68,99 @@ var linksRender = function (state) {
         signOut.addEventListener("click", function () {
             state.signedIn = "false";
             linksRender(state);
-            console.log("2 " + state.signedIn);
+            mainRender(state);
         });
     }
 };
 linksRender(state);
 // Home
 var mainRender = function (state) {
+    console.log(state);
     var main = document.querySelector("#main");
     if (state.main === "home") {
-        var signcon = document.querySelector("#sign-container");
-        if (signcon) {
-            main === null || main === void 0 ? void 0 : main.removeChild(signcon);
-        }
-        var notcon = document.querySelector("#notifications-container");
-        var postcon = document.querySelector("#posts-container");
-        if (notcon && postcon) {
+        if (state.signedIn === "true") {
+            var signcon = document.querySelector("#sign-container");
+            if (signcon) {
+                main === null || main === void 0 ? void 0 : main.removeChild(signcon);
+            }
+            var notcon = document.querySelector("#notifications-container");
+            var postcon = document.querySelector("#posts-container");
+            if (notcon && postcon) {
+            }
+            else {
+                var notificationsContainer = document.createElement("div");
+                var notifications = document.createElement("div");
+                var postsContainer = document.createElement("div");
+                var posts = document.createElement("div");
+                notificationsContainer.setAttribute("id", "notifications-container");
+                notifications.setAttribute("id", "card1");
+                postsContainer.setAttribute("id", "posts-container");
+                posts.setAttribute("id", "card2");
+                notificationsContainer.setAttribute("class", "notifications-container");
+                notifications.setAttribute("class", "cards");
+                postsContainer.setAttribute("class", "posts-container");
+                posts.setAttribute("class", "cards");
+                main === null || main === void 0 ? void 0 : main.appendChild(notificationsContainer);
+                notificationsContainer.appendChild(notifications);
+                main === null || main === void 0 ? void 0 : main.appendChild(postsContainer);
+                postsContainer.appendChild(posts);
+            }
         }
         else {
+            var signcon = document.querySelector("#sign-container");
+            if (signcon) {
+                main === null || main === void 0 ? void 0 : main.removeChild(signcon);
+            }
+            var notcon = document.querySelector("#notifications-container");
+            var postcon = document.querySelector("#posts-container");
+            if (notcon && postcon) {
+                main === null || main === void 0 ? void 0 : main.removeChild(notcon);
+                main === null || main === void 0 ? void 0 : main.removeChild(postcon);
+            }
             var notificationsContainer = document.createElement("div");
             var notifications = document.createElement("div");
             var postsContainer = document.createElement("div");
             var posts = document.createElement("div");
+            var content = document.createElement("div");
+            var content2 = document.createElement("div");
+            var notiTitle = document.createElement("h2");
+            var tempTitle = document.createElement("h2");
+            var offline = document.createElement("p");
+            var offline2 = document.createElement("p");
             notificationsContainer.setAttribute("id", "notifications-container");
             notifications.setAttribute("id", "card1");
             postsContainer.setAttribute("id", "posts-container");
             posts.setAttribute("id", "card2");
+            content.setAttribute("id", "noti-content");
+            content2.setAttribute("id", "convert1-content");
+            notiTitle.setAttribute("id", "title--noti");
+            tempTitle.setAttribute("id", "title--temp");
+            offline.setAttribute("id", "offline-text");
+            offline2.setAttribute("id", "offline-text2");
             notificationsContainer.setAttribute("class", "notifications-container");
             notifications.setAttribute("class", "cards");
             postsContainer.setAttribute("class", "posts-container");
             posts.setAttribute("class", "cards");
+            content.setAttribute("class", "noti-content");
+            content2.setAttribute("class", "convert1-content");
+            notiTitle.setAttribute("class", "title--noti");
+            tempTitle.setAttribute("class", "title--temp");
+            offline.setAttribute("class", "offline-text");
+            offline2.setAttribute("class", "offline-text2");
+            notiTitle.textContent = "Notifications";
+            tempTitle.textContent = "Temperature Converter";
+            offline.textContent = "Please sign in to view Notifications";
+            offline2.textContent = "Please sign in to use the Converters";
             main === null || main === void 0 ? void 0 : main.appendChild(notificationsContainer);
             notificationsContainer.appendChild(notifications);
+            notifications.appendChild(content);
+            content.appendChild(notiTitle);
+            content.appendChild(offline);
             main === null || main === void 0 ? void 0 : main.appendChild(postsContainer);
             postsContainer.appendChild(posts);
+            posts.appendChild(content2);
+            content2.appendChild(tempTitle);
+            content2.appendChild(offline2);
         }
     }
     else if (state.main === "signin") {

@@ -58,6 +58,8 @@ var linksRender = function (state) {
         user.setAttribute("id", "user");
         user.setAttribute("src", "./images/logo11.png");
         user.setAttribute("class", "user");
+        user.setAttribute("height", "50px");
+        user.setAttribute("width", "50px");
         userName.setAttribute("id", "user-name");
         userName.setAttribute("class", "user-name");
         userName.textContent = "USER1";
@@ -92,18 +94,91 @@ var mainRender = function (state) {
                 var notifications = document.createElement("div");
                 var postsContainer = document.createElement("div");
                 var posts = document.createElement("div");
+                var content = document.createElement("div");
+                var content2 = document.createElement("div");
+                var notiTitle = document.createElement("h2");
+                var tempTitle = document.createElement("h2");
+                var convertContainer1 = document.createElement("div");
+                var celContainer = document.createElement("div");
+                var fahContainer = document.createElement("div");
+                var celTitle = document.createElement("h4");
+                var fahTitle = document.createElement("h4");
+                var celInput = document.createElement("input");
+                var fahInput = document.createElement("input");
                 notificationsContainer.setAttribute("id", "notifications-container");
                 notifications.setAttribute("id", "card1");
                 postsContainer.setAttribute("id", "posts-container");
                 posts.setAttribute("id", "card2");
+                content.setAttribute("id", "noti-content");
+                content2.setAttribute("id", "convert1-content");
+                notiTitle.setAttribute("id", "title--noti");
+                tempTitle.setAttribute("id", "title--temp");
+                convertContainer1.setAttribute("id", "temp-container");
+                celContainer.setAttribute("id", "cel-container");
+                fahContainer.setAttribute("id", "fah-container");
+                celTitle.setAttribute("id", "title--cel");
+                fahTitle.setAttribute("id", "title--fah");
+                celInput.setAttribute("id", "cel-input");
+                fahInput.setAttribute("id", "fah-input");
                 notificationsContainer.setAttribute("class", "notifications-container");
                 notifications.setAttribute("class", "cards");
                 postsContainer.setAttribute("class", "posts-container");
                 posts.setAttribute("class", "cards");
+                content.setAttribute("class", "noti-content");
+                content2.setAttribute("class", "convert1-content");
+                notiTitle.setAttribute("class", "title--noti");
+                tempTitle.setAttribute("class", "title--temp");
+                convertContainer1.setAttribute("class", "temp-container");
+                celContainer.setAttribute("class", "cel-container");
+                fahContainer.setAttribute("class", "fah-container");
+                celTitle.setAttribute("class", "title--cel");
+                fahTitle.setAttribute("class", "title--fah");
+                celInput.setAttribute("class", "cel-input");
+                fahInput.setAttribute("class", "fah-input");
+                celInput.setAttribute("type", "text");
+                fahInput.setAttribute("type", "text");
+                notiTitle.textContent = "Notifications";
+                tempTitle.textContent = "Temperature Converter";
+                celTitle.textContent = "Celsius";
+                fahTitle.textContent = "Fahrenheit";
                 main === null || main === void 0 ? void 0 : main.appendChild(notificationsContainer);
                 notificationsContainer.appendChild(notifications);
+                notifications.appendChild(content);
+                content.appendChild(notiTitle);
                 main === null || main === void 0 ? void 0 : main.appendChild(postsContainer);
                 postsContainer.appendChild(posts);
+                posts.appendChild(content2);
+                content2.appendChild(tempTitle);
+                content2.appendChild(convertContainer1);
+                convertContainer1.appendChild(celContainer);
+                convertContainer1.appendChild(fahContainer);
+                celContainer.appendChild(celTitle);
+                fahContainer.appendChild(fahTitle);
+                celContainer.appendChild(celInput);
+                fahContainer.appendChild(fahInput);
+                var celVal_1 = document.querySelector('.cel-input[type="text"]');
+                var fahVal_1 = document.querySelector('.fah-input[type="text"]');
+                var roundFloat_1 = function (num) { return Math.round(num * 1000) / 1000; };
+                celVal_1 === null || celVal_1 === void 0 ? void 0 : celVal_1.addEventListener("input", function () {
+                    var cVal = parseFloat(celVal_1.value);
+                    var fVal = cVal * (9 / 5) + 32;
+                    if (!fVal) {
+                        document.getElementById("fah-input").value = "";
+                    }
+                    else {
+                        (document.getElementById("fah-input")).value = roundFloat_1(fVal).toString();
+                    }
+                });
+                fahVal_1 === null || fahVal_1 === void 0 ? void 0 : fahVal_1.addEventListener("input", function () {
+                    var fVal = parseFloat(fahVal_1.value);
+                    var cVal = (fVal - 32) * (5 / 9);
+                    if (!cVal) {
+                        document.getElementById("cel-input").value = "";
+                    }
+                    else {
+                        (document.getElementById("cel-input")).value = roundFloat_1(cVal).toString();
+                    }
+                });
             }
         }
         else {
@@ -195,6 +270,8 @@ var mainRender = function (state) {
             user.setAttribute("class", "user");
             signQuestion.setAttribute("class", "sQ");
             user.setAttribute("src", "./images/logo11.png");
+            user.setAttribute("height", "50px");
+            user.setAttribute("width", "50px");
             signQuestion.textContent = "Sign-in as User1?";
             var signIn = document.createElement("button");
             signIn.textContent = "SIGNIN";

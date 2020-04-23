@@ -73,6 +73,8 @@ const linksRender = (state: any) => {
     user.setAttribute("id", "user");
     user.setAttribute("src", "./images/logo11.png");
     user.setAttribute("class", "user");
+    user.setAttribute("height", "50px");
+    user.setAttribute("width", "50px");
 
     userName.setAttribute("id", "user-name");
     userName.setAttribute("class", "user-name");
@@ -113,22 +115,108 @@ const mainRender = (state: any) => {
         const notifications = document.createElement("div");
         const postsContainer = document.createElement("div");
         const posts = document.createElement("div");
+        let content = document.createElement("div");
+        let content2 = document.createElement("div");
+        const notiTitle = document.createElement("h2");
+        const tempTitle = document.createElement("h2");
+        let convertContainer1 = document.createElement("div");
+        const celContainer = document.createElement("div");
+        const fahContainer = document.createElement("div");
+        const celTitle = document.createElement("h4");
+        const fahTitle = document.createElement("h4");
+        const celInput = document.createElement("input");
+        const fahInput = document.createElement("input");
 
         notificationsContainer.setAttribute("id", "notifications-container");
         notifications.setAttribute("id", "card1");
         postsContainer.setAttribute("id", "posts-container");
         posts.setAttribute("id", "card2");
+        content.setAttribute("id", "noti-content");
+        content2.setAttribute("id", "convert1-content");
+        notiTitle.setAttribute("id", "title--noti");
+        tempTitle.setAttribute("id", "title--temp");
+        convertContainer1.setAttribute("id", "temp-container");
+        celContainer.setAttribute("id", "cel-container");
+        fahContainer.setAttribute("id", "fah-container");
+        celTitle.setAttribute("id", "title--cel");
+        fahTitle.setAttribute("id", "title--fah");
+        celInput.setAttribute("id", "cel-input");
+        fahInput.setAttribute("id", "fah-input");
 
         notificationsContainer.setAttribute("class", "notifications-container");
         notifications.setAttribute("class", "cards");
         postsContainer.setAttribute("class", "posts-container");
         posts.setAttribute("class", "cards");
+        content.setAttribute("class", "noti-content");
+        content2.setAttribute("class", "convert1-content");
+        notiTitle.setAttribute("class", "title--noti");
+        tempTitle.setAttribute("class", "title--temp");
+        convertContainer1.setAttribute("class", "temp-container");
+        celContainer.setAttribute("class", "cel-container");
+        fahContainer.setAttribute("class", "fah-container");
+        celTitle.setAttribute("class", "title--cel");
+        fahTitle.setAttribute("class", "title--fah");
+        celInput.setAttribute("class", "cel-input");
+        fahInput.setAttribute("class", "fah-input");
+        celInput.setAttribute("type", "text");
+        fahInput.setAttribute("type", "text");
+
+        notiTitle.textContent = "Notifications";
+        tempTitle.textContent = "Temperature Converter";
+        celTitle.textContent = "Celsius";
+        fahTitle.textContent = "Fahrenheit";
 
         main?.appendChild(notificationsContainer);
         notificationsContainer.appendChild(notifications);
+        notifications.appendChild(content);
+        content.appendChild(notiTitle);
 
         main?.appendChild(postsContainer);
         postsContainer.appendChild(posts);
+        posts.appendChild(content2);
+        content2.appendChild(tempTitle);
+        content2.appendChild(convertContainer1);
+        convertContainer1.appendChild(celContainer);
+        convertContainer1.appendChild(fahContainer);
+        celContainer.appendChild(celTitle);
+        fahContainer.appendChild(fahTitle);
+        celContainer.appendChild(celInput);
+        fahContainer.appendChild(fahInput);
+
+        const celVal: HTMLInputElement | null = document.querySelector(
+          '.cel-input[type="text"]'
+        );
+        const fahVal: HTMLInputElement | null = document.querySelector(
+          '.fah-input[type="text"]'
+        );
+
+        const roundFloat = (num: number) => Math.round(num * 1000) / 1000;
+
+        celVal?.addEventListener("input", () => {
+          const cVal: number = parseFloat(celVal.value);
+          const fVal: number = cVal * (9 / 5) + 32;
+
+          if (!fVal) {
+            (<HTMLInputElement>document.getElementById("fah-input")).value = "";
+          } else {
+            (<HTMLInputElement>(
+              document.getElementById("fah-input")
+            )).value = roundFloat(fVal).toString();
+          }
+        });
+
+        fahVal?.addEventListener("input", () => {
+          const fVal: number = parseFloat(fahVal.value);
+          const cVal: number = (fVal - 32) * (5 / 9);
+
+          if (!cVal) {
+            (<HTMLInputElement>document.getElementById("cel-input")).value = "";
+          } else {
+            (<HTMLInputElement>(
+              document.getElementById("cel-input")
+            )).value = roundFloat(cVal).toString();
+          }
+        });
       }
     } else {
       let signcon = document.querySelector("#sign-container");
@@ -224,6 +312,8 @@ const mainRender = (state: any) => {
       user.setAttribute("class", "user");
       signQuestion.setAttribute("class", "sQ");
       user.setAttribute("src", "./images/logo11.png");
+      user.setAttribute("height", "50px");
+      user.setAttribute("width", "50px");
 
       signQuestion.textContent = "Sign-in as User1?";
 

@@ -91,6 +91,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-content: center;
   margin: 20px 0px;
   height: 250px;
   width: 80%;
@@ -141,7 +142,7 @@ nav {
 
 .title--noti,
 .title--temp {
-  width: 60%;
+  width: 70%;
   color: green;
   background: #333;
   border-radius: 4px;

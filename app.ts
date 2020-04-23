@@ -30,6 +30,8 @@ title1.addEventListener("click", () => {
   mainRender(state);
 });
 
+// user
+
 // Signing Links
 
 const linksRender = (state: any) => {
@@ -121,15 +123,41 @@ const mainRender = (state: any) => {
     } else {
       const signContainer = document.createElement("div");
       const signer = document.createElement("div");
+      const signContent = document.createElement("div");
+      let userCont = document.createElement("div");
+      let user = document.createElement("img");
+      const signQuestion = document.createElement("p");
 
       signContainer.setAttribute("id", "sign-container");
       signer.setAttribute("id", "signer");
+      signContent.setAttribute("id", "sign-content");
+      userCont.setAttribute("id", "user-container");
+      user.setAttribute("id", "user");
+      signQuestion.setAttribute("id", "sQ");
 
       signContainer.setAttribute("class", "sign-container");
       signer.setAttribute("class", "cards");
+      signContent.setAttribute("class", "sign-content");
+      userCont.setAttribute("class", "user-container");
+      user.setAttribute("class", "user");
+      signQuestion.setAttribute("class", "sQ");
+      user.setAttribute("src", "./images/logo11.png");
+
+      signQuestion.textContent = "Sign-in as David Orson?";
+
+      let signIn = document.createElement("button");
+
+      signIn.textContent = "SIGNIN";
+      signIn.setAttribute("id", "signinFinal");
+      signIn.setAttribute("class", "btn");
 
       main?.appendChild(signContainer);
       signContainer.appendChild(signer);
+      signer.appendChild(signContent);
+      signContent.appendChild(userCont);
+      userCont.appendChild(user);
+      userCont.appendChild(signQuestion);
+      signContent.appendChild(signIn);
     }
   }
 };

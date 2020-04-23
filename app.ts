@@ -36,9 +36,13 @@ title1.addEventListener("click", () => {
 
 const linksRender = (state: any) => {
   const signIn = document.createElement("button");
+
+  const signedInLinks = document.createElement("div");
   const signOut = document.createElement("button");
+  const user = document.createElement("img");
+  const userName = document.createElement("span");
   if (state.signedIn === "false") {
-    let out = document.querySelector("#logout");
+    let out = document.querySelector("#signedIn");
     if (out) {
       navContainer.removeChild(out);
     }
@@ -59,11 +63,26 @@ const linksRender = (state: any) => {
     if (myIn) {
       navContainer.removeChild(myIn);
     }
+    signedInLinks.setAttribute("id", "signedIn");
+    signedInLinks.setAttribute("class", "signedIn");
+
     signOut.textContent = "LOGOUT";
     signOut.setAttribute("id", "logout");
     signOut.setAttribute("class", "btn");
 
-    navContainer?.appendChild(signOut);
+    user.setAttribute("id", "user");
+    user.setAttribute("src", "./images/logo11.png");
+    user.setAttribute("class", "user");
+
+    userName.setAttribute("id", "user-name");
+    userName.setAttribute("class", "user-name");
+
+    userName.textContent = "USER1";
+
+    navContainer?.appendChild(signedInLinks);
+    signedInLinks?.appendChild(user);
+    signedInLinks?.appendChild(userName);
+    signedInLinks?.appendChild(signOut);
 
     signOut.addEventListener("click", () => {
       state.signedIn = "false";
@@ -143,7 +162,7 @@ const mainRender = (state: any) => {
       signQuestion.setAttribute("class", "sQ");
       user.setAttribute("src", "./images/logo11.png");
 
-      signQuestion.textContent = "Sign-in as David Orson?";
+      signQuestion.textContent = "Sign-in as User1?";
 
       let signIn = document.createElement("button");
 
@@ -158,6 +177,13 @@ const mainRender = (state: any) => {
       userCont.appendChild(user);
       userCont.appendChild(signQuestion);
       signContent.appendChild(signIn);
+
+      signIn.addEventListener("click", () => {
+        state.signedIn = "true";
+        state.main = "home";
+        linksRender(state);
+        mainRender(state);
+      });
     }
   }
 };

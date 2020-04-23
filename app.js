@@ -26,9 +26,12 @@ title1.addEventListener("click", function () {
 // Signing Links
 var linksRender = function (state) {
     var signIn = document.createElement("button");
+    var signedInLinks = document.createElement("div");
     var signOut = document.createElement("button");
+    var user = document.createElement("img");
+    var userName = document.createElement("span");
     if (state.signedIn === "false") {
-        var out = document.querySelector("#logout");
+        var out = document.querySelector("#signedIn");
         if (out) {
             navContainer.removeChild(out);
         }
@@ -47,10 +50,21 @@ var linksRender = function (state) {
         if (myIn) {
             navContainer.removeChild(myIn);
         }
+        signedInLinks.setAttribute("id", "signedIn");
+        signedInLinks.setAttribute("class", "signedIn");
         signOut.textContent = "LOGOUT";
         signOut.setAttribute("id", "logout");
         signOut.setAttribute("class", "btn");
-        navContainer === null || navContainer === void 0 ? void 0 : navContainer.appendChild(signOut);
+        user.setAttribute("id", "user");
+        user.setAttribute("src", "./images/logo11.png");
+        user.setAttribute("class", "user");
+        userName.setAttribute("id", "user-name");
+        userName.setAttribute("class", "user-name");
+        userName.textContent = "USER1";
+        navContainer === null || navContainer === void 0 ? void 0 : navContainer.appendChild(signedInLinks);
+        signedInLinks === null || signedInLinks === void 0 ? void 0 : signedInLinks.appendChild(user);
+        signedInLinks === null || signedInLinks === void 0 ? void 0 : signedInLinks.appendChild(userName);
+        signedInLinks === null || signedInLinks === void 0 ? void 0 : signedInLinks.appendChild(signOut);
         signOut.addEventListener("click", function () {
             state.signedIn = "false";
             linksRender(state);
@@ -122,7 +136,7 @@ var mainRender = function (state) {
             user.setAttribute("class", "user");
             signQuestion.setAttribute("class", "sQ");
             user.setAttribute("src", "./images/logo11.png");
-            signQuestion.textContent = "Sign-in as David Orson?";
+            signQuestion.textContent = "Sign-in as User1?";
             var signIn = document.createElement("button");
             signIn.textContent = "SIGNIN";
             signIn.setAttribute("id", "signinFinal");
@@ -134,6 +148,12 @@ var mainRender = function (state) {
             userCont.appendChild(user);
             userCont.appendChild(signQuestion);
             signContent.appendChild(signIn);
+            signIn.addEventListener("click", function () {
+                state.signedIn = "true";
+                state.main = "home";
+                linksRender(state);
+                mainRender(state);
+            });
         }
     }
 };
